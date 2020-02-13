@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import Error from './Error';
 import shortid from 'shortid'
+import PropTypes from 'prop-types'
 
-const Form = ({newExpense}) => {
+
+const Form = ({setExpense, setMakeExpense}) => {
 
   const [item, setItem] = useState('');
   const [number, setNumber] = useState(0)
@@ -24,7 +26,8 @@ const Form = ({newExpense}) => {
        id: shortid.generate()
      }
 
-     newExpense(expense)
+     setExpense(expense)
+     setMakeExpense(true)
      setItem('');
      setNumber(0);
 
@@ -35,7 +38,7 @@ const Form = ({newExpense}) => {
     <form onSubmit={addExpense}>
           <h2>Agrega tus gastos aquí</h2>
 
-          {error ? <Error message='Ambos campos son obligatorios o Presupuesto incorrecto'/> : null }
+          {error ? <Error message='Todos los campos son obligatorios o presupuesto incorrecto'/> : null }
 
           <div className='field'>
             <label>Nombre Gasto</label>
@@ -48,7 +51,7 @@ const Form = ({newExpense}) => {
             />
           </div>
           <div className='field'>
-            <label>Nombre Gasto</label>
+            <label>Gasto</label>
             <input 
               type='number'
               className='u-full-width'
@@ -68,5 +71,10 @@ const Form = ({newExpense}) => {
     </form>
    );
 }
- 
+
+
+Form.propTypes = {
+  setExpense: PropTypes.func.isRequired,
+  setMakeExpense: PropTypes.func.isRequired
+}
 export default Form;
