@@ -2,25 +2,28 @@ import React, {Fragment, useState} from 'react'
 import Error from './Error';
 
 
-const Question = () => {
+const Question = ({setBudget, setRest, setQuestion}) => {
 
 
-  const [quantity, saveQuantity] = useState(0);
-  const [error, saveError] = useState(false);
+  const [quantity,setQuantity] = useState(0);
+  const [error, setError] = useState(false);
 
 
   const makeBudget = e => {
-    saveQuantity(parseInt(e.target.value, 10))
+    setQuantity(parseInt(e.target.value, 10))
   }
 
   const addBudget = e => {
     e.preventDefault();
 
     if( quantity < 1 || isNaN(quantity) ) {
-      saveError(true);
-      return
+      setError(true);
+      return;
     } 
-    saveError(false)
+    setError(false);
+    setBudget(quantity);
+    setRest(quantity);
+    setQuestion(false);
 
   }
 
